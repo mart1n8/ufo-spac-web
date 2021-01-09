@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -23,7 +25,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+*/
+Route::get('/',  [HomeController::class, 'index'])->middleware(['auth:sanctum', 'verified'])->name('/');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+
+
+Route::get('/clanky/novy',  [ArticleController::class, 'create'])->middleware(['auth:sanctum', 'verified'])->name('article.create');
+Route::post('/clanky/novy',  [ArticleController::class, 'store'])->middleware(['auth:sanctum', 'verified'])->name('article.store');
+Route::get('/clanky/{clanok}/upravit',  [ArticleController::class, 'edit'])->middleware(['auth:sanctum', 'verified'])->name('article.edit');
+Route::post('/clanky/{clanok}/upravit',  [ArticleController::class, 'update'])->middleware(['auth:sanctum', 'verified'])->name('article.update');
+Route::get('/clanok/{article}',  [ArticleController::class, 'show'])->middleware(['auth:sanctum', 'verified'])->name('article.show');

@@ -26,5 +26,9 @@
         "vue": "^2.5.17",
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "ckeditor4-vue": "^1.2.0",
+        "vue-moment": "^4.1.0"
     }
 }
